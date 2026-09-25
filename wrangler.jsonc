@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json.schemastore.org/wrangler.json",
+  "name": "incidentpilot-worker",
+  "main": "apps/worker/src/index.ts",
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  "ai": {
+    "binding": "AI"
+  },
+
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "INCIDENT_AGENT",
+        "class_name": "IncidentAgent"
+      },
+      {
+        "name": "INCIDENT_DO",
+        "class_name": "IncidentDurableObject"
+      }
+    ]
+  },
+
+  "workflows": [
+    {
+      "name": "incident-investigation-workflow",
+      "binding": "INCIDENT_WORKFLOW",
+      "class_name": "IncidentInvestigationWorkflow"
+    }
+  ],
+
+  "r2_buckets": [
+    {
+      "binding": "INCIDENT_REPORTS",
+      "bucket_name": "incidentpilot-reports",
+      "preview_bucket_name": "incidentpilot-reports-dev"
+    }
+  ],
+
+  "vectorize": [
+    {
+      "binding": "INCIDENT_VECTORS",
+      "index_name": "incidentpilot-incidents"
+    }
+  ],
+
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["IncidentAgent", "IncidentDurableObject"]
+    }
+  ],
+
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+
+  "env": {
+    "development": {
+      "vars": {
+        "ENVIRONMENT": "development",
+        "LOG_LEVEL": "debug",
+        "APPROVAL_TIMEOUT_SECONDS": "300"
+      }
+    },
+    "staging": {
+      "vars": {
+        "ENVIRONMENT": "staging",
+        "LOG_LEVEL": "info",
+        "APPROVAL_TIMEOUT_SECONDS": "600"
+      }
+    },
+    "production": {
+      "vars": {
+        "ENVIRONMENT": "production",
+        "LOG_LEVEL": "warn",
+        "APPROVAL_TIMEOUT_SECONDS": "3600"
+      }
+    }
+  },
+
+  "vars": {
+    "ENVIRONMENT": "development",
+    "LOG_LEVEL": "debug",
+    "APPROVAL_TIMEOUT_SECONDS": "300"
+  }
+}

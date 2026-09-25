@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #0a0a0b;
+    color: #f4f4f5;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #111113;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a2d;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3a3d;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-bg-card border border-border rounded-lg;
+  }
+
+  .card-hover {
+    @apply card transition-colors hover:border-border-strong;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium
+           transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand text-text-inverse hover:bg-brand-bright;
+  }
+
+  .btn-secondary {
+    @apply btn bg-bg-hover text-text-secondary border border-border hover:bg-bg-tertiary hover:text-text-primary;
+  }
+
+  .btn-ghost {
+    @apply btn text-text-secondary hover:bg-bg-hover hover:text-text-primary;
+  }
+
+  .btn-danger {
+    @apply btn bg-severity-critical/10 text-severity-critical border border-severity-critical/20
+           hover:bg-severity-critical/20;
+  }
+
+  .btn-success {
+    @apply btn bg-severity-low/10 text-severity-low border border-severity-low/20
+           hover:bg-severity-low/20;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-critical {
+    @apply badge bg-severity-critical/10 text-severity-critical border border-severity-critical/20;
+  }
+
+  .badge-high {
+    @apply badge bg-severity-high/10 text-severity-high border border-severity-high/20;
+  }
+
+  .badge-medium {
+    @apply badge bg-severity-medium/10 text-severity-medium border border-severity-medium/20;
+  }
+
+  .badge-low {
+    @apply badge bg-severity-low/10 text-severity-low border border-severity-low/20;
+  }
+
+  .status-dot {
+    @apply w-2 h-2 rounded-full inline-block;
+  }
+
+  .status-dot-pulse {
+    @apply status-dot animate-pulse-slow;
+  }
+
+  .mono {
+    @apply font-mono text-sm;
+  }
+
+  .section-header {
+    @apply text-xs font-semibold uppercase tracking-widest text-text-muted mb-3;
+  }
+
+  .input {
+    @apply w-full bg-bg-secondary border border-border rounded-md px-3 py-2 text-sm text-text-primary
+           placeholder:text-text-muted
+           focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand/50
+           transition-colors;
+  }
+
+  .animate-in {
+    @apply animate-fade-in;
+  }
+
+  /* Step timeline */
+  .timeline-step {
+    @apply flex items-start gap-3;
+  }
+
+  .timeline-step-icon {
+    @apply w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5;
+  }
+
+  /* Evidence cards */
+  .evidence-card {
+    @apply card p-4 space-y-2;
+  }
+
+  /* Metric display */
+  .metric-change-positive {
+    @apply text-severity-critical text-sm font-mono;
+  }
+
+  .metric-change-negative {
+    @apply text-severity-low text-sm font-mono;
+  }
+
+  /* Chat message */
+  .chat-user {
+    @apply bg-bg-tertiary border border-border rounded-lg px-4 py-3 text-sm;
+  }
+
+  .chat-assistant {
+    @apply bg-bg-secondary border border-brand/20 rounded-lg px-4 py-3 text-sm;
+  }
+}
+
+/* Loading shimmer */
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #1c1c1f 8%, #232326 18%, #1c1c1f 33%);
+  background-size: 200px 100%;
+  animation: shimmer 1.2s infinite;
+}

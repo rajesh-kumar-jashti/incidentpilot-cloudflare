@@ -1,0 +1,24 @@
+{
+  "name": "incidentpilot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "IncidentPilot — AI Incident Response Agent on Cloudflare",
+  "workspaces": [
+    "apps/web",
+    "apps/worker"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:worker\" \"npm run dev:web\"",
+    "dev:worker": "npm run dev --workspace=apps/worker",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/web && npm run build --workspace=apps/worker",
+    "deploy": "npm run build --workspace=apps/web && npm run deploy --workspace=apps/worker",
+    "test": "npm run test --workspace=apps/worker",
+    "lint": "npm run lint --workspace=apps/worker && npm run lint --workspace=apps/web",
+    "typecheck": "npm run typecheck --workspace=apps/worker && npm run typecheck --workspace=apps/web",
+    "install:all": "npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
